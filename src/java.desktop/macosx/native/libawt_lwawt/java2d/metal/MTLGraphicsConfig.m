@@ -117,7 +117,7 @@ Java_sun_java2d_metal_MTLGraphicsConfig_tryLoadMetalLibrary
     JNI_COCOA_ENTER(env);
     NSMutableArray * retArray = [NSMutableArray arrayWithCapacity:3];
     [retArray addObject: [NSNumber numberWithInt: (int)displayID]];
-    NSString *str = JNU_GetStringPlatformChars(env, shadersLibName, 0);
+    char *str = JNU_GetStringPlatformChars(env, shadersLibName, 0);
     [retArray addObject: [NSString stringWithUTF8String: str]];
 
     [ThreadUtilities performOnMainThreadWaiting:YES block:^() {
@@ -150,7 +150,7 @@ Java_sun_java2d_metal_MTLGraphicsConfig_getMTLConfigInfo
     JNI_COCOA_ENTER(env);
     NSMutableArray * retArray = [NSMutableArray arrayWithCapacity:3];
     [retArray addObject: [NSNumber numberWithInt: (int)displayID]];
-    NSString *str = JNU_GetStringPlatformChars(env, mtlShadersLib, 0);
+    char *str = JNU_GetStringPlatformChars(env, mtlShadersLib, 0);
     [retArray addObject: [NSString stringWithUTF8String: str]];
 
     [ThreadUtilities performOnMainThreadWaiting:YES block:^() {
