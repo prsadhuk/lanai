@@ -117,7 +117,8 @@ Java_sun_java2d_metal_MTLGraphicsConfig_tryLoadMetalLibrary
   JNI_COCOA_ENTER(env);
   NSMutableArray * retArray = [NSMutableArray arrayWithCapacity:3];
   [retArray addObject: [NSNumber numberWithInt: (int)displayID]];
-  [retArray addObject: [NSString stringWithUTF8String: JNU_GetStringPlatformChars(env, shadersLibName, 0)]];
+  NSString *str = JNU_GetStringPlatformChars(env, shadersLibName, 0);
+  [retArray addObject: [NSString stringWithUTF8String: str]];
   if ([NSThread isMainThread]) {
       [MTLGraphicsConfigUtil _tryLoadMetalLibrary: retArray];
   } else {
@@ -125,6 +126,7 @@ Java_sun_java2d_metal_MTLGraphicsConfig_tryLoadMetalLibrary
   }
   NSNumber * num = (NSNumber *)[retArray objectAtIndex: 0];
   ret = (jboolean)[num boolValue];
+  JNU_ReleaseStringPlatformChars(env, shadersLibName, str);
   JNI_COCOA_EXIT(env);
   return ret;
 }
@@ -148,7 +150,8 @@ Java_sun_java2d_metal_MTLGraphicsConfig_getMTLConfigInfo
   JNI_COCOA_ENTER(env);
   NSMutableArray * retArray = [NSMutableArray arrayWithCapacity:3];
   [retArray addObject: [NSNumber numberWithInt: (int)displayID]];
-  [retArray addObject: [NSString stringWithUTF8String: JNU_GetStringPlatformChars(env, mtlShadersLib, 0)]];
+  NSString *str = JNU_GetStringPlatformChars(env, mtlShadersLib, 0);
+  [retArray addObject: [NSString stringWithUTF8String: str]];
   if ([NSThread isMainThread]) {
       [MTLGraphicsConfigUtil _getMTLConfigInfo: retArray];
   } else {
@@ -156,6 +159,7 @@ Java_sun_java2d_metal_MTLGraphicsConfig_getMTLConfigInfo
   }
   NSNumber * num = (NSNumber *)[retArray objectAtIndex: 0];
   ret = (jlong)[num longValue];
+  JNU_ReleaseStringPlatformChars(env, mtlShadersLib, str);
   JNI_COCOA_EXIT(env);
   return ret;
 }
